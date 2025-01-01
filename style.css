@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 1vh 1vw;
+    background: black;
+    display: flex;
+    gap: 1vw;
+    height: 100vh;
+}
+
+.button {
+    height: 100%;
+    width: 50%;
+}
+
+#button1 {
+    background-color: green;
+}
+
+#button1:active {
+    background-color: greenyellow;
+}
+
+#button2 {
+    background-color: blue;
+}
+
+#button2:active {
+    background-color: cyan;
+}
