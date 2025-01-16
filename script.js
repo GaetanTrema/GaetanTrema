@@ -25,7 +25,9 @@ function reset() {
     button2Audio.pause();
 }
 
-const options = {};
+const options = {
+    acceptAllDevices: true
+};
 document.querySelector('#bt-connect-btn').addEventListener('click', () => {
     navigator.bluetooth
     .requestDevice(options)
