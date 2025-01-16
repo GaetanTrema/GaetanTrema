@@ -26,7 +26,9 @@ function reset() {
 }
 
 const options = {
-    acceptAllDevices: true
+    filters: [
+        { name: 'TouchVibes 0.1' }
+    ],
 };
 document.querySelector('#bt-connect-btn').addEventListener('click', () => {
     navigator.bluetooth
