@@ -26,11 +26,11 @@ function reset() {
 }
 
 const options = {};
-
+alert('Requesting Bluetooth Device...');
 navigator.bluetooth
   .requestDevice(options)
   .then((device) => {
     alert(`Name: ${device.name}`);
     // Do something with the device.
   })
-  .catch((error) => console.error(`Something went wrong. ${error}`));
+  .catch((error) => alert(`Something went wrong. ${error}`));
