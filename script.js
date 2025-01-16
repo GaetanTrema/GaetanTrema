@@ -24,3 +24,13 @@ function reset() {
     button2Audio.currentTime = 0;
     button2Audio.pause();
 }
+
+const options = {};
+
+navigator.bluetooth
+  .requestDevice(options)
+  .then((device) => {
+    alert(`Name: ${device.name}`);
+    // Do something with the device.
+  })
+  .catch((error) => console.error(`Something went wrong. ${error}`));
