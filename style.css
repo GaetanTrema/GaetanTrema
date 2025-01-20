@@ -6,9 +6,17 @@ body {
     margin: 0;
     padding: 1vh 1vw;
     background: black;
+    color: white;
+}
+
+.playground {
     display: flex;
     gap: 1vw;
     height: 100vh;
+}
+
+.hidden {
+    display: none;
 }
 
 .button {

@@ -13,6 +13,7 @@
 BLEService vibrationService("00001802-0000-1000-8000-00805f9b34fb"); // Bluetooth® Low Energy LED Service
 BLEByteCharacteristic switchCharacteristic("19B10001-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite);
 int ledPin = LED_BUILTIN;
+int motorPin = 33;
 
 
 void setup() {
@@ -22,7 +23,9 @@ void setup() {
   }
 
   pinMode(ledPin, OUTPUT);
+  pinMode(motorPin, OUTPUT);
   digitalWrite(ledPin, LOW);
+  digitalWrite(motorPin, LOW);
 
   BLE.setLocalName("TEST");
   BLE.setAdvertisedService(vibrationService);
@@ -46,8 +49,10 @@ void switchCharacteristicWritten(BLEDevice central, BLECharacteristic characteri
   if (switchCharacteristic.value()) {
     Serial.println("LED on");
     digitalWrite(ledPin, HIGH);
+    digitalWrite(motorPin, HIGH);
   } else {
     Serial.println("LED off");
     digitalWrite(ledPin, LOW);
+    digitalWrite(motorPin, LOW);
   }
 }
