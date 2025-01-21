@@ -70,10 +70,22 @@ connectButton.addEventListener('click', () => {
     .catch((error) => alert(`Something went wrong. ${error}`));
 });
 
+let vibrating = false;
+let lastHitTimestamp = 0;
 const burstVibration = () => {
-    motorCharacteristic.writeValue(Uint8Array.of(1));
+    
+    lastHitTimestamp = Date.now();
+    if (!vibrating) {
+        motorCharacteristic.writeValue(Uint8Array.of(1));
+        vibrating = true;
+    }
+
     setTimeout(() => {
-        motorCharacteristic.writeValue(Uint8Array.of(0));
+        const currentTimestamp = Date.now();
+        if (currentTimestamp - lastHitTimestamp >= 1000) {
+            motorCharacteristic.writeValue(Uint8Array.of(0));
+            vibrating = false;
+        }
     }, 1000);
 }
 
