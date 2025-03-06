@@ -44,29 +44,47 @@ connectButton.addEventListener('click', () => {
     .then(device => {
         console.log("device connected", device.name);
         connectButton.classList.add('hidden');
-        updateStatus('Vibreur trouvé. Connexion...');
+        updateStatus('Boutons trouvé. Connexion...');
         return device.gatt.connect();
     })
     .then(server => {
         console.log('server connected', server.connected);
-        updateStatus('Vibreur connecté');
+        updateStatus('Préparation...');
         return server.getPrimaryService("immediate_alert");
     })
     .then(service => {
-        updateStatus('Préparation...');
-        console.log("service connected", service.uuid);
-        return service.getCharacteristic('19b10001-e8f2-537e-4f6c-d104768a1214');
+        console.log('service up', service.uuid);
+        updateStatus('Boutons prêts');
+        return service.getCharacteristic("19b10001-e8f2-537e-4f6c-d104768a1214");
     })
-    .then(characteristic => {
-        
-        motorCharacteristic = characteristic;
-        updateStatus('Vibreur prêt.');
-        playButton.classList.remove('hidden');
-        playButton.addEventListener('click', () => {
-            playground.classList.remove('hidden');
-            actionBar.classList.add('hidden');
+    .then(async characteristic => {
+         // Écoute des notifications
+         await characteristic.startNotifications();
+        characteristic.addEventListener('characteristicvaluechanged', (event) => {
+            const value = event.target.value.getUint8(0);
+            console.log("recieved", value);
+            if (value === 1) {
+                document.querySelector('body').style.backgroundColor = 'red';
+            } else {
+                document.querySelector('body').style.backgroundColor = 'black';
+            }
         });
     })
+    // .then(service => {
+    //     updateStatus('Préparation...');
+    //     console.log("service connected", service.uuid);
+    //     return service.getCharacteristic('19b10001-e8f2-537e-4f6c-d104768a1214');
+    // })
+    // .then(characteristic => {
+        
+    //     motorCharacteristic = characteristic;
+    //     updateStatus('Vibreur prêt.');
+    //     playButton.classList.remove('hidden');
+    //     playButton.addEventListener('click', () => {
+    //         playground.classList.remove('hidden');
+    //         actionBar.classList.add('hidden');
+    //     });
+    // })
     .catch((error) => alert(`Something went wrong. ${error}`));
 });
 
@@ -88,6 +106,8 @@ const burstVibration = () => {
         }
     }, 1000);
 }
+
+
 
 const updateStatus = (status) => {
     statusElement.innerHTML = status;
