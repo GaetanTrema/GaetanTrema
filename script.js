@@ -44,7 +44,7 @@ connectButton.addEventListener('click', () => {
     .then(device => {
         console.log("device connected", device.name);
         connectButton.classList.add('hidden');
-        updateStatus('Boutons trouvé. Connexion...');
+        updateStatus('Vibreur trouvé. Connexion...');
         return device.gatt.connect();
     })
     .then(server => {

@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Interface Sam</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button>TEST</button>
-
-    <script src="test.js"></script>
+    <div class="action-bar">
+        <button id="bt-connect-btn">Connect</button>
+        <button id="start-btn" class="hidden">Jouer !</button>
+        <span id="status">Disconnected</span>
+    </div>
+    <div class="playground hidden">
+        <div class="button" id="button1"></div>
+        <div class="button" id="button2"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
